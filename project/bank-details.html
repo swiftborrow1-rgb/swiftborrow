@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Bank Details – Swift Borrow</title>
+  <link rel="stylesheet" href="bank-details.css" />
+</head>
+
+<body>
+
+  <main class="container">
+
+    <div class="card">
+
+      <h1>Bank Details</h1>
+      <p class="subtitle">
+        Add a bank account where approved funds can be sent.
+        You can update this later.
+      </p>
+
+      <div class="summary">
+        <span>Requested amount</span>
+        <strong id="amount">$—</strong>
+      </div>
+
+      <form id="bankForm">
+
+        <div class="field">
+          <label for="bankName">Bank name</label>
+          <input
+            type="text"
+            id="bankName"
+            placeholder="e.g. Chase"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label for="accountName">Account holder name</label>
+          <input
+            type="text"
+            id="accountName"
+            placeholder="John Doe"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label for="routing">Routing number</label>
+          <input
+            type="text"
+            id="routing"
+            placeholder="9 digits"
+            required
+          />
+        </div>
+
+        <div class="field">
+          <label for="account">Account number</label>
+          <input
+            type="text"
+            id="account"
+            placeholder="••••••••"
+            required
+          />
+        </div>
+
+        <button type="submit" class="btn">
+          Continue
+        </button>
+
+      </form>
+
+      <div class="note">
+        This information is used only to prepare your payout.
+      </div>
+
+    </div>
+
+  </main>
+
+  <script>
+    const amount = localStorage.getItem('borrowAmount');
+    const form = document.getElementById('bankForm');
+
+    if (!amount) {
+      window.location.href = 'eligibility.html';
+    }
+
+    document.getElementById('amount').textContent = amount;
+
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      // 🚧 Prototype only — no real storage
+      window.location.href = 'verification.html';
+    });
+  </script>
+
+</body>
+</html>

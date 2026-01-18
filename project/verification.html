@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout – Swift Borrow</title>
+    <link rel="stylesheet" href="verification.css" />
+</head>
+
+<body>
+    <main class="container">
+        <div class="card">
+
+            <h1>Final Checkout</h1>
+            <p class="subtitle">
+                Review your requested amount and follow the instructions below.
+            </p>
+
+            <!-- Requested Amount -->
+            <div class="summary">
+                <span>Requested amount</span>
+                <strong id="amount">$—</strong>
+            </div>
+
+            <!-- Instructions -->
+            <div class="instructions">
+                <h2>Next Step</h2>
+                <p>
+                    Please send <strong id="tenPercent">$—</strong>
+                    (10% of your requested amount) in Bitcoin to the wallet address below:
+                </p>
+
+                <!-- WALLET + COPY -->
+                <div class="wallet-box">
+                    <div class="wallet-text">
+                        <span class="label">Bitcoin Wallet</span>
+                        <span class="address" id="btcAddress">
+                            3G2Zoj77FYfWDmGiGhGyUy3PC8vWA6i8AG
+                        </span>
+                    </div>
+                    <button type="button" id="copyWallet">Copy</button>
+                </div>
+
+                <p id="copyFeedback" aria-live="polite"></p>
+
+                <p style="margin-top:12px;">
+                    After sending, upload a screenshot of your transaction and click the button below.
+                </p>
+            </div>
+
+            <!-- Upload + Confirm -->
+            <form id="checkoutForm">
+                <input type="file" id="screenshotUpload" accept="image/*" required />
+                <button type="submit" id="submitBtn" disabled>
+                    Sent Already
+                </button>
+            </form>
+
+            <div class="note">
+                Once verified, your application will be marked successful.
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        /* ===== DATA HANDOFF ===== */
+        const amount = localStorage.getItem('borrowAmount');
+        const form = document.getElementById('checkoutForm');
+        const submitBtn = document.getElementById('submitBtn');
+        const uploadInput = document.getElementById('screenshotUpload');
+
+        if (!localStorage.getItem('borrowType') ||
+            !localStorage.getItem('borrowAmount')) {
+            window.location.href = 'eligibility.html';
+        }
+
+        document.getElementById('amount').textContent = amount;
+
+        const numericAmount = parseFloat(amount.replace(/[^0-9.]/g, ''));
+        const tenPercent = numericAmount * 0.1;
+        document.getElementById('tenPercent').textContent =
+            `$${tenPercent.toFixed(2)}`;
+
+        /* ===== COPY WALLET ===== */
+        const copyBtn = document.getElementById('copyWallet');
+        const walletAddress = document.getElementById('btcAddress').textContent.trim();
+        const copyFeedback = document.getElementById('copyFeedback');
+
+        copyBtn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(walletAddress);
+                copyFeedback.textContent = 'Wallet address copied to clipboard';
+                copyBtn.textContent = 'Copied';
+                setTimeout(() => {
+                    copyBtn.textContent = 'Copy';
+                    copyFeedback.textContent = '';
+                }, 1600);
+            } catch {
+                copyFeedback.textContent = 'Please copy the address manually';
+            }
+        });
+
+        /* ===== ENABLE BUTTON AFTER FILE UPLOAD ===== */
+        uploadInput.addEventListener('change', () => {
+            submitBtn.disabled = !uploadInput.files.length;
+        });
+
+        /* ===== FINAL ACTION ===== */
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // mark status for later use (optional)
+            localStorage.setItem('loanStatus', 'processing');
+
+            // Replace the card content with a success message
+            const card = document.querySelector('.card');
+            card.innerHTML = `
+        <h1>✅ Payment Verified</h1>
+        <p class="subtitle">Your transaction has been received and verified.</p>
+        <div class="success">
+          Your loan application is now marked successful.<br />
+          Funds will be processed shortly.
+        </div>
+        <div class="note" style="margin-top: 20px;">
+          Thank you for using Swift Borrow.
+        </div>
+      `;
+        });
+    </script>
+</body>
+
+</html>

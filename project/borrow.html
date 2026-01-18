@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Your Borrow Dashboard – Swift Borrow</title>
+    <link rel="stylesheet" href="borrow.css" />
+</head>
+
+<body>
+
+    <main class="container">
+
+        <div class="dashboard-card">
+
+            <h1 id="welcome">Hi there</h1>
+            <p class="subtitle" id="subtitle">
+                Here’s your borrowing overview
+            </p>
+
+            <div class="amount-box">
+                <span>Your available amount</span>
+                <strong id="amount">$—</strong>
+            </div>
+
+            <div class="details">
+                <p id="borrowTypeText"></p>
+            </div>
+
+            <a href="verification.html" class="btn">
+                Continue
+            </a>
+
+        </div>
+
+    </main>
+
+    <script>
+        const name = localStorage.getItem('userName');
+        const amount = localStorage.getItem('borrowAmount');
+        const type = localStorage.getItem('borrowType');
+
+        // Fallback protection
+        if (!amount || !type) {
+            window.location.href = 'eligibility.html';
+        }
+
+        document.getElementById('welcome').textContent =
+            `Hi, ${name || 'there'}`;
+
+        document.getElementById('amount').textContent =
+            amount || '$—';
+
+        const typeText = document.getElementById('borrowTypeText');
+        const subtitle = document.getElementById('subtitle');
+
+        if (type === 'starter') {
+            typeText.textContent =
+                'This amount is based on what you requested through Starter Borrow.';
+            subtitle.textContent =
+                'You’re one step away from completing your application.';
+        } else {
+            typeText.textContent =
+                'This amount is an estimate based on your credit profile.';
+            subtitle.textContent =
+                'Complete verification to proceed.';
+        }
+    </script>
+
+</body>
+
+</html>

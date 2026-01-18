@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Starter Borrow – Swift Borrow</title>
+    <link rel="stylesheet" href="starter-borrow.css" />
+</head>
+
+<body>
+
+    <main class="container">
+
+        <div class="starter-header">
+            <h1>You Still Have Options</h1>
+            <p>
+                Based on your current credit profile, you may qualify for smaller,
+                short-term borrowing options designed to help you build credit.
+            </p>
+        </div>
+
+        <div class="starter-card">
+
+            <div class="starter-input">
+                <label for="borrowAmount">How much do you want to borrow?</label>
+
+                <input
+                    type="number"
+                    id="borrowAmount"
+                    placeholder="e.g. 1,500"
+                    min="500"
+                    step="50"
+                    required
+                />
+
+                <div class="limit-note" id="limitNote"></div>
+            </div>
+
+            <!-- ✅ REAL BUTTON -->
+            <button class="starter-btn" id="starterContinue">
+                Continue
+            </button>
+
+            <ul class="starter-benefits">
+                <li>No hard credit check to start</li>
+                <li>Faster approval</li>
+                <li>Designed to help build credit</li>
+            </ul>
+
+            <div class="starter-note">
+                Final terms depend on verification · No hidden fees
+            </div>
+
+        </div>
+
+    </main>
+
+    <!-- SCRIPT -->
+    <script>
+        const amountInput = document.getElementById('borrowAmount');
+        const continueBtn = document.getElementById('starterContinue');
+        const limitNote = document.getElementById('limitNote');
+
+        const creditScore = Number(localStorage.getItem('creditScore'));
+
+        // 🚫 Hard stop if data is missing
+        if (!creditScore || creditScore < 300) {
+            alert('You are not eligible for borrowing at this time.');
+            window.location.href = 'eligibility.html';
+        }
+
+        // ✅ Max logic: creditScore × 10, capped at 5000
+        const calculatedMax = creditScore * 10;
+        const maxAllowed = Math.min(calculatedMax, 5000);
+
+        amountInput.max = maxAllowed;
+
+        limitNote.textContent =
+            `Based on your credit score, you can request up to $${maxAllowed.toLocaleString()}.`;
+
+        continueBtn.addEventListener('click', () => {
+            const amount = Number(amountInput.value);
+
+            if (!amount) {
+                alert('Please enter an amount.');
+                return;
+            }
+
+            if (amount < 500) {
+                alert('Minimum borrow amount is $500.');
+                return;
+            }
+
+            if (amount > maxAllowed) {
+                alert(`Maximum allowed is $${maxAllowed.toLocaleString()}.`);
+                return;
+            }
+
+            // 🔒 CLEAR OLD DATA
+            localStorage.removeItem('borrowAmount');
+            localStorage.removeItem('borrowType');
+
+            // ✅ SAVE FINAL, USER-SELECTED AMOUNT
+            localStorage.setItem(
+                'borrowAmount',
+                `$${amount.toLocaleString()}`
+            );
+            localStorage.setItem('borrowType', 'starter');
+
+            // ➜ NEXT STEP
+            window.location.href = 'bank-details.html';
+        });
+    </script>
+
+</body>
+</html>

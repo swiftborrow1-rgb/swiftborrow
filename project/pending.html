@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Verification Pending – Swift Borrow</title>
+  <link rel="stylesheet" href="verification.css" />
+</head>
+
+<body>
+  <main class="container">
+    <div class="card">
+
+      <h1>Verification Pending</h1>
+      <p class="subtitle">
+        We’re reviewing your submission.
+      </p>
+
+      <!-- STATUS -->
+      <div class="summary">
+        <span>Status</span>
+        <strong class="status pending">Awaiting verification</strong>
+      </div>
+
+      <!-- WHAT'S HAPPENING -->
+      <div class="instructions">
+        <h2>What’s happening?</h2>
+        <p>
+          We haven’t received or confirmed your verification yet.
+          This can take some time depending on network conditions.
+        </p>
+        <p style="margin-top:10px;">
+          If we’re unable to verify your submission,
+          <strong>any amount deducted will be refunded back to your bank</strong>.
+        </p>
+      </div>
+
+      <!-- SUPPORT -->
+      <div class="instructions support-box">
+        <h2>Need help?</h2>
+        <p>
+          To speed things up, you can contact our support team.
+        </p>
+
+        <a
+          href="mailto:swiftborrow1.com"
+          class="support-cta"
+        >
+          📧 Contact Support
+        </a>
+      </div>
+
+      <div class="note">
+        We’ll notify you once your status updates.
+      </div>
+
+    </div>
+  </main>
+
+  <!-- STATE LOCK SCRIPT -->
+  <script>
+    const status = localStorage.getItem('loanStatus');
+
+    // 🔒 FORCE PENDING STATE
+    if (!status) {
+      localStorage.setItem('loanStatus', 'pending');
+    }
+
+    // 🚫 DO NOT REDIRECT ANYWHERE
+    // Page intentionally stays here until YOU change state
+  </script>
+</body>
+</html>

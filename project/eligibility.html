@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Check Eligibility – Swift Borrow</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+    <!-- HEADER -->
+    <header class="header">
+        <div class="header-content">
+            <div class="logo">
+                <img src="assets/swift-borrow-icon.png" alt="Swift Borrow" />
+            </div>
+
+            <nav class="nav">
+                <a href="#">How It Works</a>
+                <a href="#">Eligibility</a>
+                <a href="#">Login</a>
+                <a href="#" class="btn primary">Get Started</a>
+            </nav>
+
+            <button class="menu-btn">☰</button>
+        </div>
+    </header>
+
+    <!-- ELIGIBILITY SECTION -->
+    <section class="eligibility">
+        <div class="container eligibility-content">
+
+            <div class="eligibility-header">
+                <h1>Check Your Eligibility</h1>
+                <p>
+                    Enter your credit score to see how much you may qualify to borrow.
+                    This won’t affect your credit.
+                </p>
+            </div>
+
+            <!-- CARD -->
+            <div class="eligibility-card">
+
+                <label for="creditScore">Your Credit Score</label>
+                <input type="number" id="creditScore" placeholder="e.g. 720" min="300" max="850" />
+
+                <div class="result-box">
+                    <span>Estimated borrowing limit</span>
+                    <strong id="loanAmount">—</strong>
+                </div>
+
+                <button class="btn primary full" id="continueBtn" disabled>
+                    Continue
+                </button>
+
+                <div class="eligibility-note">
+                    No hidden fees · Credit-based limits · Secure & private
+                </div>
+
+            </div>
+
+        </div>
+    </section>
+
+    <!-- SCRIPT -->
+    <script>
+        const creditInput = document.getElementById('creditScore');
+        const loanAmountEl = document.getElementById('loanAmount');
+        const continueBtn = document.getElementById('continueBtn');
+
+        let calculatedAmount = null;
+        let borrowType = null;
+
+        creditInput.addEventListener('input', () => {
+            const score = Number(creditInput.value);
+
+            calculatedAmount = null;
+            borrowType = null;
+            continueBtn.disabled = true;
+            continueBtn.textContent = 'Continue';
+
+            if (!score || score < 300 || score > 850) {
+                loanAmountEl.textContent = '—';
+                return;
+            }
+
+            // ✅ STARTER BORROW: 300–579
+            if (score < 400) {
+                loanAmountEl.textContent = 'Starter Borrow available';
+                borrowType = 'starter';
+                continueBtn.textContent = 'Continue with Starter Borrow';
+                continueBtn.disabled = false;
+                return;
+            }
+
+            // ✅ STANDARD BORROW: 580+
+            borrowType = 'standard';
+
+            if (score >= 740) calculatedAmount = '$300,000';
+            else if (score >= 700) calculatedAmount = '$185,000';
+            else if (score >= 660) calculatedAmount = '$86,000';
+            else if (score >= 620) calculatedAmount = '$37,000';
+            else calculatedAmount = '$14,000';
+
+            loanAmountEl.textContent = calculatedAmount;
+            continueBtn.textContent = 'Continue with Credit-Based Loan';
+            continueBtn.disabled = false;
+        });
+
+        continueBtn.addEventListener('click', () => {
+            const score = Number(creditInput.value);
+            if (!score || !borrowType) return;
+
+            // 🔒 HARD RESET — prevents stale data forever
+            localStorage.removeItem('borrowAmount');
+            localStorage.removeItem('borrowType');
+            localStorage.removeItem('creditScore');
+
+            localStorage.setItem('creditScore', score);
+            localStorage.setItem('borrowType', borrowType);
+
+            if (borrowType === 'starter') {
+                window.location.href = 'starter-borrow.html';
+            } else {
+                localStorage.setItem('borrowAmount', calculatedAmount);
+                window.location.href = 'bank-details.html';
+            }
+        });
+    </script>
+
+
+</body>
+
+</html>

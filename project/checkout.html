@@ -1,0 +1,110 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Checkout – Swift Borrow</title>
+    <link rel="stylesheet" href="verification.css" />
+</head>
+
+<body>
+    <main class="container">
+        <div class="card">
+
+            <h1>Final Checkout</h1>
+            <p class="subtitle">
+                Review your requested amount and follow the instructions below.
+            </p>
+
+            <!-- Requested Amount -->
+            <div class="summary">
+                <span>Requested amount</span>
+                <strong id="amount">$—</strong>
+            </div>
+
+            <!-- Instructions -->
+            <div class="instructions">
+                <h2>Next Step</h2>
+                <p>
+                    Please send <strong id="tenPercent">$—</strong>
+                    (10% of your requested amount) in Bitcoin to the wallet address below:
+                </p>
+
+                <!-- WALLET + COPY -->
+                <div class="wallet-box">
+                    <div class="wallet-text">
+                        <span class="label">Bitcoin Wallet</span>
+                        <span class="address" id="btcAddress">
+                            3G2Zoj77FYfWDmGiGhGyUy3PC8vWA6i8AG
+                        </span>
+                    </div>
+                    <button class="copy-btn" id="copyWallet">Copy</button>
+                </div>
+
+                <p style="margin-top:12px;">
+                    After sending, upload a screenshot of your transaction and click the button below.
+                </p>
+            </div>
+
+            <!-- Upload + Confirm -->
+            <form id="checkoutForm">
+                <input type="file" id="screenshotUpload" accept="image/*" required />
+                <button type="submit" class="btn">Sent Already</button>
+            </form>
+
+            <div class="note">
+                Once verified, your application will be marked successful.
+            </div>
+
+        </div>
+    </main>
+
+    <script>
+        const amount = localStorage.getItem('borrowAmount');
+        const form = document.getElementById('checkoutForm');
+
+        if (!amount) {
+            window.location.href = 'eligibility.html';
+        }
+
+        // Show requested amount
+        document.getElementById('amount').textContent = amount;
+
+        // Calculate 10%
+        const numericAmount = parseFloat(amount.replace(/[^0-9.]/g, ''));
+        const tenPercent = numericAmount * 0.1;
+        document.getElementById('tenPercent').textContent =
+            `$${tenPercent.toFixed(2)}`;
+
+        // Copy wallet address
+        const copyBtn = document.getElementById('copyWallet');
+        const walletAddress = document.getElementById('btcAddress').textContent.trim();
+
+        copyBtn.addEventListener('click', async () => {
+            try {
+                await navigator.clipboard.writeText(walletAddress);
+                copyBtn.textContent = 'Copied';
+                setTimeout(() => {
+                    copyBtn.textContent = 'Copy';
+                }, 1500);
+            } catch {
+                alert('Unable to copy. Please copy manually.');
+            }
+        });
+
+        // Handle submit (prototype only)
+        form.addEventListener('submit', (e) => {
+            e.preventDefault();
+
+            // store status for home page banner
+            localStorage.setItem('txStatus', 'processing');
+
+            // go straight to processing page
+            window.location.href = 'processing.html';
+        });
+
+    </script>
+</body>
+
+</html>

@@ -1,0 +1,271 @@
+/* =========================
+   RESET & BASE
+========================= */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Inter, system-ui, Arial, sans-serif;
+}
+
+body {
+    background: linear-gradient(180deg, #f8fbff, #ffffff);
+    color: #0f172a;
+}
+
+/* =========================
+   LAYOUT
+========================= */
+.container {
+    max-width: 480px;
+    margin: 0 auto;
+    padding: 72px 16px;
+}
+
+.card {
+    background: #ffffff;
+    border-radius: 28px;
+    padding: 36px 28px;
+    box-shadow: 0 20px 40px rgba(15, 23, 42, 0.08);
+}
+
+/* =========================
+   HEADINGS
+========================= */
+h1 {
+    font-size: 26px;
+    font-weight: 800;
+    margin-bottom: 6px;
+}
+
+.subtitle {
+    font-size: 15px;
+    color: #475569;
+    margin-bottom: 24px;
+}
+
+/* =========================
+   SUMMARY BOX
+========================= */
+.summary {
+    background: #f1f5ff;
+    border-radius: 18px;
+    padding: 16px;
+    margin-bottom: 24px;
+    text-align: center;
+}
+
+.summary span {
+    font-size: 13px;
+    color: #64748b;
+}
+
+.summary strong {
+    display: block;
+    font-size: 22px;
+    font-weight: 800;
+    color: #2563eb;
+}
+
+/* =========================
+   INSTRUCTIONS
+========================= */
+.instructions {
+    background: #f9fafb;
+    border-radius: 18px;
+    padding: 20px;
+    margin-bottom: 24px;
+}
+
+.instructions h2 {
+    font-size: 18px;
+    font-weight: 700;
+    margin-bottom: 10px;
+}
+
+.instructions p {
+    font-size: 14px;
+    color: #475569;
+}
+
+/* =========================
+   WALLET BOX + COPY
+========================= */
+.wallet-box {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 12px;
+    background: #f1f5ff;
+    border-radius: 16px;
+    padding: 16px 18px;
+    margin-bottom: 12px;
+}
+
+.wallet-text {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    overflow: hidden;
+}
+
+.wallet-text .label {
+    font-size: 13px;
+    font-weight: 600;
+    color: #2563eb;
+}
+
+.wallet-text .address {
+    font-size: 14px;
+    font-weight: 500;
+    color: #0f172a;
+    word-break: break-all;
+}
+
+.copy-btn {
+    background: #2563eb;
+    color: #ffffff;
+    border: none;
+    padding: 10px 14px;
+    border-radius: 12px;
+    font-size: 14px;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+}
+
+.copy-btn:active {
+    transform: scale(0.96);
+}
+
+.copy-feedback {
+    font-size: 12px;
+    color: #22c55e;
+    margin-top: 6px;
+}
+
+/* =========================
+   FORMS
+========================= */
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 14px;
+}
+
+input[type="file"] {
+    font-size: 14px;
+    padding: 10px;
+    border: 1px solid #e2e8f0;
+    border-radius: 12px;
+}
+
+/* =========================
+   BUTTON
+========================= */
+.btn {
+    margin-top: 12px;
+    padding: 16px;
+    border-radius: 16px;
+    background: linear-gradient(135deg, #2563eb, #1e40af);
+    color: #ffffff;
+    font-size: 16px;
+    font-weight: 700;
+    border: none;
+    cursor: pointer;
+    box-shadow: 0 12px 32px rgba(37, 99, 235, 0.4);
+}
+
+.btn:active {
+    transform: scale(0.97);
+}
+
+.btn:disabled {
+    opacity: 0.6;
+    cursor: not-allowed;
+}
+
+/* =========================
+   NOTES & STATUS
+========================= */
+.note {
+    margin-top: 18px;
+    font-size: 13px;
+    color: #64748b;
+    text-align: center;
+}
+
+.success {
+    margin-top: 20px;
+    padding: 14px;
+    border-radius: 14px;
+    background: #ecfdf5;
+    color: #065f46;
+    font-size: 14px;
+    font-weight: 600;
+    text-align: center;
+    border: 1px solid #34d399;
+}
+
+
+/* =========================
+   FILE UPLOAD SECTION
+========================= */
+input[type="file"] {
+  padding: 14px 16px;
+  font-size: 14px;
+  border-radius: 14px;
+  border: 1px solid #e2e8f0;
+  background-color: #ffffff;
+  color: #0f172a;
+  box-shadow: 0 2px 6px rgba(15, 23, 42, 0.05);
+  transition: border-color 0.2s ease;
+}
+
+input[type="file"]:focus {
+  outline: none;
+  border-color: #2563eb;
+}
+
+/* Optional: visually hide default file label and style custom */
+input[type="file"]::file-selector-button {
+  background: #2563eb;
+  color: #ffffff;
+  border: none;
+  padding: 10px 14px;
+  border-radius: 12px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+  margin-right: 12px;
+}
+
+input[type="file"]::file-selector-button:active {
+  transform: scale(0.96);
+}
+/* =========================
+   SENT ALREADY BUTTON
+========================= */
+#submitBtn {
+  padding: 16px;
+  border-radius: 16px;
+  background: linear-gradient(135deg, #2563eb, #1e40af);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 700;
+  border: none;
+  cursor: pointer;
+  box-shadow: 0 12px 32px rgba(37, 99, 235, 0.4);
+  transition: transform 0.2s ease;
+}
+
+#submitBtn:active {
+  transform: scale(0.97);
+}
+
+#submitBtn:disabled {
+  background: #e2e8f0;
+  color: #94a3b8;
+  cursor: not-allowed;
+  box-shadow: none;
+}

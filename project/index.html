@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Swift Borrow – Fast Credit-Based Loans</title>
+    <link rel="stylesheet" href="styles.css" />
+</head>
+
+<body>
+
+    <!-- =========================
+       HEADER
+  ========================= -->
+    <header class="header">
+        <div class="header-content">
+
+            <!-- BRAND ICON -->
+            <div class="logo">
+                <img src="assets/swift-borrow-icon.png" alt="Swift Borrow" />
+            </div>
+
+            <!-- DESKTOP NAV -->
+            <nav class="nav" aria-label="Primary navigation">
+                <a href="how-it-works.html">How It Works</a>
+                <a href="eligibility.html">Eligibility</a>
+                <a href="login.html">Login</a>
+                <a href="eligibility.html" class="btn primary">Get Started</a>
+            </nav>
+
+            <!-- MOBILE MENU BUTTON -->
+            <button class="menu-btn" id="menuToggle" aria-label="Open menu" aria-expanded="false">
+                ☰
+            </button>
+
+        </div>
+    </header>
+
+    <div class="home-status" id="homeStatus">
+        <div class="status-left">
+            <strong>Pending transaction</strong>
+            <span>We’re reviewing your application</span>
+        </div>
+        <button class="status-help" id="openSupport">Contact support</button>
+    </div>
+
+    <!-- =========================
+       MOBILE MENU OVERLAY
+  ========================= -->
+    <div class="menu-overlay" id="menuOverlay"></div>
+
+    <!-- =========================
+       MOBILE SLIDE MENU
+  ========================= -->
+    <aside class="mobile-menu" id="mobileMenu" aria-hidden="true">
+        <div class="mobile-menu-header">
+            <img src="assets/swift-borrow-icon.png" alt="Swift Borrow" />
+            <button class="close-btn" id="menuClose" aria-label="Close menu">
+                ✕
+            </button>
+        </div>
+
+        <nav class="mobile-nav" aria-label="Mobile navigation">
+            <a href="how-it-works.html">How It Works</a>
+            <a href="eligibility.html">Eligibility</a>
+            <a href="login.html">Login</a>
+            <a href="eligibility.html" class="btn primary">Get Started</a>
+        </nav>
+    </aside>
+
+    <!-- =========================
+       HERO SECTION
+  ========================= -->
+    <section class="hero">
+        <div class="container hero-content">
+
+            <!-- HERO TEXT -->
+            <div class="hero-text">
+                <h1>
+                    Borrow What You Need.<br />
+                    Fast & Credit-Based.
+                </h1>
+
+                <p>
+                    Get access to funds from <strong>$500 up to $300,000</strong>
+                    based on your credit score. Simple, transparent, and built for speed.
+                </p>
+
+                <div class="hero-actions">
+                    <a href="eligibility.html" class="btn primary">Check Eligibility</a>
+                    <a href="how-it-works.html" class="btn secondary">How It Works</a>
+                </div>
+
+                <div class="trust-badge">
+                    No hidden fees · Credit-based limits
+                </div>
+            </div>
+
+            <!-- HERO VISUAL -->
+            <div class="hero-visual">
+                <img src="assets/swift-borrow-logo.png" alt="Swift Borrow" />
+            </div>
+
+        </div>
+    </section>
+
+    <div class="support-overlay" id="supportOverlay"></div>
+
+    <div class="support-popup" id="supportPopup">
+        <h3>Contact Support</h3>
+        <p>
+            If you need assistance, our team can help review your pending transaction.
+        </p>
+        <p class="support-email">
+            📧 <strong>swiftborrow1@gmail.com</strong>
+        </p>
+        <button class="close-support" id="closeSupport">Close</button>
+    </div>
+
+    <!-- =========================
+       MOBILE MENU SCRIPT
+  ========================= -->
+    <script>
+        const menuToggle = document.getElementById('menuToggle');
+        const menuClose = document.getElementById('menuClose');
+        const mobileMenu = document.getElementById('mobileMenu');
+        const menuOverlay = document.getElementById('menuOverlay');
+        const mobileLinks = document.querySelectorAll('.mobile-nav a');
+
+        function openMenu() {
+            mobileMenu.classList.add('active');
+            menuOverlay.classList.add('active');
+            mobileMenu.setAttribute('aria-hidden', 'false');
+            document.body.style.overflow = 'hidden';
+            menuToggle.setAttribute('aria-expanded', 'true');
+        }
+
+        function closeMenu() {
+            mobileMenu.classList.remove('active');
+            menuOverlay.classList.remove('active');
+            mobileMenu.setAttribute('aria-hidden', 'true');
+            document.body.style.overflow = '';
+            menuToggle.setAttribute('aria-expanded', 'false');
+        }
+
+        menuToggle.addEventListener('click', openMenu);
+        menuClose.addEventListener('click', closeMenu);
+        menuOverlay.addEventListener('click', closeMenu);
+
+        mobileLinks.forEach(link => {
+            link.addEventListener('click', closeMenu);
+        });
+    </script>
+
+</body>
+
+</html>

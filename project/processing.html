@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Loan Processing – Swift Borrow</title>
+  <link rel="stylesheet" href="verification.css" />
+</head>
+
+<body>
+  <main class="container">
+    <div class="card" style="text-align:center;">
+      <h1>Loan Processing</h1>
+      <p class="subtitle">
+        Your request is being reviewed.
+      </p>
+
+      <div class="summary">
+        <span>Status</span>
+        <strong style="color:#2563eb;">Processing</strong>
+      </div>
+
+      <div class="note">
+        You don’t need to take any action right now.
+      </div>
+    </div>
+  </main>
+
+  <script>
+    // After a short delay, go to pending page or home
+    setTimeout(() => {
+      window.location.href = 'pending.html';
+    }, 3500);
+  </script>
+</body>
+</html>
